@@ -1,7 +1,3 @@
-# docker compose -f pterodactyl-docker-compose.yml -p pterodactyl up -d
-
-# docker exec -it pterodactyl-panel-1 php artisan p:user:make
-
 version: '3.8'
 x-common:
   database:
@@ -42,7 +38,7 @@ services:
     restart: always
     command: --default-authentication-plugin=mysql_native_password
     volumes:
-      - ${mariadb}:/var/lib/mysql
+      - "/srv/pterodactyl/database:/var/lib/mysql"
     environment:
       <<: *db-environment
       MYSQL_DATABASE: "panel"
@@ -60,10 +56,10 @@ services:
       - database
       - cache
     volumes:
-      - ${panel_var}:/app/var/
-      - ${panel_nginx}:/etc/nginx/http.d/
-      - ${panel_letsencrypt}:/etc/letsencrypt/
-      - ${panel_logs}:/app/storage/logs
+      - "${PANEL_VAR_VOLUME_PATH}:/app/var/"
+      - "${NGINX_CONF_VOLUME_PATH}:/etc/nginx/http.d/"
+      - "${SSL_CERTS_VOLUME_PATH}:/etc/letsencrypt/"
+      - "${LOGS_VOLUME_PATH}:/app/storage/logs"
     environment:
       <<: [*panel-environment, *mail-environment]
       DB_PASSWORD: *db-password

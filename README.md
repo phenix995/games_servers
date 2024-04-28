@@ -12,4 +12,4 @@ docker compose --env-file windows.env -f pterodactyl-base-docker-compose.yml -p 
 docker exec -it pterodactyl-panel-1 php artisan p:user:make
 
 # after running the above command, you can access the panel and create a node, then you will need to create a config file for the node and place this file in the node config folder (wings_etc) and restart the wings container
-
+http://localhost
