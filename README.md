@@ -13,3 +13,12 @@ docker exec -it pterodactyl-panel-1 php artisan p:user:make
 
 # after running the above command, you can access the panel and create a node, then you will need to create a config file for the node and place this file in the node config folder (wings_etc) and restart the wings container
 http://localhost
+
+
+# Puffer Panel installation
+
+docker compose --env-file windows.env -f docker-compose-pufferpanel.yaml -p pufferpanel up -d
+
+docker exec -it pufferpanel /pufferpanel/pufferpanel user add
+
+# after running the command, you can access the panel by visiting http://localhost:8080
